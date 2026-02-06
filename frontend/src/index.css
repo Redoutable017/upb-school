@@ -1,0 +1,566 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== VARIABLES CSS ========== */
+:root {
+  /* Couleurs de base */
+  --color-accent: #0b84ff;
+  --color-accent-dark: #0066cc;
+  
+  /* Thème sombre */
+  --color-dark-bg: linear-gradient(135deg, #0a0a0f 0%, #1a1b2e 100%);
+  --color-dark-card: rgba(255, 255, 255, 0.05);
+  --color-dark-text: #f7fafc;
+  --color-dark-border: rgba(255, 255, 255, 0.1);
+  
+  /* Thème clair */
+  --color-light-bg: linear-gradient(135deg, #f5f7fa 0%, #e3e7ed 100%);
+  --color-light-card: #ffffff;
+  --color-light-text: #1a202c;
+  --color-light-border: #e2e8f0;
+  
+  /* Notifications - Toujours sombres (votre préférence) */
+  --notification-bg: linear-gradient(135deg, #1a1b2e 0%, #0d0e1a 100%);
+  --notification-color: #ffffff;
+  --notification-border: rgba(255, 255, 255, 0.1);
+  --notification-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Typographie */
+  --font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+}
+
+/* ========== STYLES DE BASE ========== */
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-darker to-dark text-gray-100;
+    font-family: var(--font-family);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Appliquer les variables selon le thème */
+  .dark body {
+    background: var(--color-dark-bg) !important;
+    color: var(--color-dark-text) !important;
+  }
+  
+  .light body {
+    background: var(--color-light-bg) !important;
+    color: var(--color-light-text) !important;
+  }
+  
+  /* Scrollbar personnalisé */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+  
+  .dark ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .light ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-dark);
+  }
+}
+
+/* ========== COMPOSANTS ========== */
+@layer components {
+  /* Boutons */
+  .btn {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2;
+  }
+  
+  .btn-primary {
+    @apply bg-accent hover:bg-blue-600 text-white shadow-lg hover:shadow-xl hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm;
+  }
+  
+  .dark .btn-secondary {
+    @apply bg-white/10 hover:bg-white/20 text-white;
+  }
+  
+  .light .btn-secondary {
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-900;
+  }
+  
+  /* Cartes */
+  .card {
+    @apply backdrop-blur-md border rounded-2xl p-6 shadow-xl transition-all duration-300;
+  }
+  
+  .dark .card {
+    @apply bg-white/5 border-white/10;
+  }
+  
+  .light .card {
+    @apply bg-white border-gray-200 text-gray-900;
+  }
+  
+  /* Inputs */
+  .input {
+    @apply w-full px-4 py-3 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all;
+  }
+  
+  .dark .input {
+    @apply bg-white/5 border border-white/10 focus:border-accent focus:ring-accent/50;
+  }
+  
+  .light .input {
+    @apply bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-accent focus:ring-accent/50;
+  }
+  
+  /* Badges */
+  .badge {
+    @apply px-4 py-2 rounded-full bg-accent/20 text-accent font-semibold text-sm;
+  }
+  
+  /* Select */
+  select {
+    @apply rounded-lg px-4 py-3 transition-all duration-300;
+  }
+  
+  .dark select {
+    @apply bg-gray-900 border border-gray-700 text-white;
+  }
+  
+  .light select {
+    @apply bg-white border border-gray-300 text-gray-900;
+  }
+  
+  select:focus {
+    @apply outline-none ring-2 ring-accent border-accent;
+  }
+  
+  option {
+    @apply transition-colors duration-300;
+  }
+  
+  .dark option {
+    @apply bg-gray-900 text-white;
+  }
+  
+  .light option {
+    @apply bg-white text-gray-900;
+  }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-20px); 
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.5; 
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* ========== NOTIFICATIONS (TOASTS) ========== */
+/* VOTRE PRÉFÉRENCE : Notifications toujours sombres */
+/* Support pour react-hot-toast */
+.Toaster,
+[data-hot-toast],
+div[class*="go3"][style*="animation"],
+div[class*="go2"][style*="animation"],
+div[style*="top: 0px"][style*="z-index: 9999"] > div,
+div[style*="animation"][style*="will-change"] {
+  background: linear-gradient(135deg, #1a1b2e 0%, #0d0e1a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Forcer le texte blanc dans les toasts */
+.Toaster *,
+[data-hot-toast] *,
+div[class*="go3"] *,
+div[class*="go2"] *,
+div[role="status"] > div * {
+  color: #ffffff !important;
+}
+
+/* Anciennes règles pour sonner (au cas où) */
+[data-sonner-toaster],
+.sonner-toaster,
+[role="status"][aria-live="polite"],
+.go3958317564,
+.go2071108556,
+div[class*="go"][style*="animation"] {
+  background: var(--notification-bg) !important;
+  border: 1px solid var(--notification-border) !important;
+  box-shadow: var(--notification-shadow) !important;
+  color: var(--notification-color) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Contenu des notifications */
+[data-sonner-toaster] *,
+.sonner-toaster *,
+[role="status"][aria-live="polite"] *,
+.go3958317564 *,
+.go2071108556 *,
+div[class*="go"][style*="animation"] * {
+  color: var(--notification-color) !important;
+  background: transparent !important;
+}
+
+/* Bouton de fermeture */
+[data-sonner-toaster] button,
+.sonner-toaster button,
+[data-sonner-toast] [data-close-button] {
+  color: var(--notification-color) !important;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+[data-sonner-toaster] button:hover,
+.sonner-toaster button:hover,
+[data-sonner-toast] [data-close-button]:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Icônes dans les notifications */
+[data-sonner-toaster] svg,
+.sonner-toaster svg {
+  color: var(--color-accent) !important;
+}
+
+/* Animation d'entrée des notifications */
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+[data-sonner-toast] {
+  animation: toastSlideIn 0.3s ease-out !important;
+}
+
+/* ========== UTILITAIRES ========== */
+/* Avatars de fallback */
+.fallback-avatar {
+  display: none;
+}
+
+.fallback-avatar.flex {
+  display: flex !important;
+}
+
+/* Textes adaptatifs */
+.dark .text-adaptive {
+  color: var(--color-dark-text) !important;
+}
+
+.light .text-adaptive {
+  color: var(--color-light-text) !important;
+}
+
+/* Bordures adaptatives */
+.dark .border-adaptive {
+  border-color: var(--color-dark-border) !important;
+}
+
+.light .border-adaptive {
+  border-color: var(--color-light-border) !important;
+}
+
+/* Backgrounds adaptatifs */
+.dark .bg-adaptive {
+  background: var(--color-dark-card) !important;
+}
+
+.light .bg-adaptive {
+  background: var(--color-light-card) !important;
+}
+
+/* Classes pour le thème clair - spécifiques */
+/* IMPORTANT: Ne pas affecter les notifications (toujours sombres) */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6,
+.light p:not([class*="go"]),
+.light span:not([class*="go"]) {
+  color: var(--color-light-text) !important;
+}
+
+.light .text-gray-400 {
+  color: #718096 !important;
+}
+
+.light .text-gray-500 {
+  color: #a0aec0 !important;
+}
+
+.light .text-gray-300 {
+  color: #e2e8f0 !important;
+}
+
+/* Classes pour le thème sombre - spécifiques */
+.dark .text-gray-400 {
+  color: #a0aec0 !important;
+}
+
+.dark .text-gray-500 {
+  color: #718096 !important;
+}
+
+.dark .text-gray-300 {
+  color: #4a5568 !important;
+}
+
+/* ========== TRANSITIONS GLOBALES ========== */
+* {
+  transition: background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              color 0.3s ease,
+              opacity 0.3s ease,
+              transform 0.3s ease;
+}
+
+/* Exceptions pour les animations et les notifications */
+.no-transition,
+.no-transition *,
+[data-sonner-toaster] *,
+[role="status"][aria-live="polite"] *,
+.sonner-toaster * {
+  transition: none !important;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+  .card {
+    @apply p-4;
+  }
+  
+  .btn {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  .input {
+    @apply py-2;
+  }
+}
+
+/* ========== ACCESSIBILITÉ ========== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-float,
+  .animate-pulse-slow,
+  .animate-fadeIn,
+  .animate-slideIn {
+    animation: none !important;
+  }
+}
+
+/* Focus visible pour accessibilité */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ========== CORRECTIONS SPÉCIFIQUES POUR LES BUGS ========== */
+
+/* Correction pour les notifications en thème clair */
+html.light [data-sonner-toaster],
+html.light .sonner-toaster,
+html.light [data-sonner-toast],
+html.light [role="status"][aria-live="polite"] {
+  /* FORCER le style sombre pour les notifications même en thème clair */
+  background: var(--notification-bg) !important;
+  color: var(--notification-color) !important;
+  border: 1px solid var(--notification-border) !important;
+}
+
+/* Correction pour le texte blanc en thème clair */
+html.light .text-white:not([data-sonner-toaster] *):not([role="status"] *):not(.force-white) {
+  color: var(--color-light-text) !important;
+}
+
+/* Correction pour les fonds transparents en thème clair */
+html.light .bg-white\/5:not([data-sonner-toaster] *):not([role="status"] *) {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .bg-white\/10:not([data-sonner-toaster] *):not([role="status"] *) {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Correction pour les bordures en thème clair */
+html.light .border-white\/10:not([data-sonner-toaster] *):not([role="status"] *) {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Forcer certaines classes à rester sombres */
+.force-dark {
+  background: var(--notification-bg) !important;
+  color: var(--notification-color) !important;
+  border: 1px solid var(--notification-border) !important;
+}
+
+.force-dark * {
+  color: var(--notification-color) !important;
+}
+
+/* Stickers d'animation (pour vos animations vert/rouge) */
+.sticker-success {
+  @apply bg-emerald-500/20 border-emerald-500/30 text-emerald-400;
+  animation: stickerPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.sticker-error {
+  @apply bg-red-500/20 border-red-500/30 text-red-400;
+  animation: stickerPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes stickerPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Overlay pour chargement */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Mode maintenance/erreur */
+.maintenance-mode {
+  @apply min-h-screen flex items-center justify-center p-4;
+}
+
+.dark .maintenance-mode {
+  @apply bg-gradient-to-br from-gray-900 to-gray-800;
+}
+
+.light .maintenance-mode {
+  @apply bg-gradient-to-br from-gray-50 to-gray-100;
+}
+
+/* Styles pour les pages d'erreur */
+.error-page {
+  @apply min-h-screen flex items-center justify-center text-center p-4;
+}
+
+.dark .error-page {
+  @apply bg-gradient-to-br from-gray-900 to-gray-800 text-white;
+}
+
+.light .error-page {
+  @apply bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .card {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}
